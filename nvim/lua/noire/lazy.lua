@@ -13,8 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup(
     {
-        { import = "sethy.plugins" },
-        { import = "sethy.plugins.lsp" },
+        { import = "noire.plugins" },
+        --{ import = "noire.plugins.lsp" },
     },
     {
         checker = {
