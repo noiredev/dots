@@ -135,7 +135,7 @@ return {
                     { section = "startup" },
                     {
                         section = "terminal",
-                        cmd = "ascii-image-converter ~/Desktop/Others/profiles.JPG -C -c",
+                        cmd = "ascii-image-converter ~/Pictures/1737985941163841.png -C -c",
                         random = 15,
                         pane = 2,
                         indent = 15,
@@ -173,7 +173,7 @@ return {
         optional = true,
         keys = {
             { "<leader>pt", function() require("snacks").picker.todo_comments() end, desc = "All" },
-            { "<leader>pT", function() require("snacks").picker.todo_comments({ keywords = { "TODO","FORGETNOT","FIXME" } }) end, desc = "mains" },
+            { "<leader>pT", function() require("snacks").picker.todo_comments({ keywords = { "TODO","FORGETNOT","FIXME", "FIX" } }) end, desc = "mains" },
         },
     }
 }
