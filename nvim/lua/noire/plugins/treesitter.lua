@@ -44,6 +44,9 @@ return {
                     "java",
                     "rust",
                     "ron",
+                    "gdscript",
+                    "godo_resource",
+                    "gdshader",
                 },
                 incremental_selection = {
                     enable = true,

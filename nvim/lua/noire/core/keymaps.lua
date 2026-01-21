@@ -18,7 +18,7 @@ vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
 
 -- the how it be paste
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>P", [["_dP]])
 
 -- remember yanked
 vim.keymap.set("v", "p", '"_dp', opts)
@@ -39,13 +39,13 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "x", '"_x', opts)
 
 -- Replace the word cursor is on globally
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word cursor is on globally" })
+vim.keymap.set("n", "<leader>R", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word cursor is on globally" })
 
 -- Executes shell command from in here making file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "makes file executable" })
 
-vim.keymap.set("n", "<leader>hs", vim.cmd.split)
-vim.keymap.set("n", "<leader>vs", vim.cmd.vsplit)
+--vim.keymap.set("n", "<leader>hs", vim.cmd.split)
+--vim.keymap.set("n", "<leader>vs", vim.cmd.vsplit)
 
 -- Hightlight yanking
 vim.api.nvim_create_autocmd("TextYankPost", {

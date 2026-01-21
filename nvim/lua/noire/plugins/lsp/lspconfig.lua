@@ -75,6 +75,7 @@ return {
         -- Setup servers
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
         local capabilities = cmp_nvim_lsp.default_capabilities()
+        --require('lspconfig').gdscript.setup(capabilities)
 
         -- Global LSP settings (applied to all servers)
         vim.lsp.config('*', {
