@@ -1,0 +1,401 @@
+summaries:
+  Unique: values.unique().length
+formulas:
+  image: image(file.file)
+  first-image: image(file.embeds[0])
+  Second_Image: image(file.embeds[1])
+  third_Image: image(file.embeds[2])
+  nick group: date.month
+  yearMonth: date(note["journal-date"]).format("YYYYMM")
+  on_this_day: |
+    if(date(this.file.name).month ==
+    date(file.name).month,
+    if(date(this.file.name).day ==
+    date(file.name).day,
+    if(date(this.file.name).year >
+    date(file.name).year, "True",
+    "False"),
+    "False"),
+    "False")
+  test: date(this.file.name).day
+properties:
+  formula.image:
+    displayName: Image
+  formula.Second_Image:
+    displayName: second_Image
+  note.log-healthy-eating:
+    displayName: 🥗 log-healthy-eating
+  note.log-day-rating:
+    displayName: ❎ log-day-rating
+  note.log-sleep-hours:
+    displayName: 😴 log-sleep-hours
+  note.log-sleep-rating:
+    displayName: 🛏️ log-sleep-rating
+views:
+  - type: table
+    name: All Journal Notes
+    filters:
+      and:
+        - type.contains("daily")
+    groupBy:
+      property: formula.yearMonth
+      direction: ASC
+    order:
+      - file.name
+      - summary
+      - formula.first-image
+      - formula.Second_Image
+      - formula.third_Image
+      - voicenote
+      - file.tags
+      - formula.yearMonth
+      - file.path
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 162
+      note.summary: 281
+      formula.first-image: 149
+      formula.Second_Image: 149
+      formula.third_Image: 150
+      note.voicenote: 230
+    rowHeight: extra
+  - type: table
+    name: Birthday This Month
+    filters:
+      and:
+        - date(birthday).month == date(this.file.name).month
+    order:
+      - file.name
+      - birthday
+      - summary
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 162
+      note.summary: 281
+      formula.first-image: 149
+      formula.Second_Image: 149
+      formula.third_Image: 150
+      note.voicenote: 230
+    rowHeight: medium
+  - type: table
+    name: Today Years Ago
+    filters:
+      and:
+        - formula.on_this_day.contains("True")
+    order:
+      - file.name
+      - summary
+      - formula.first-image
+      - formula.Second_Image
+      - formula.third_Image
+      - voicenote
+    sort:
+      - property: file.name
+        direction: ASC
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 162
+      note.summary: 281
+      formula.first-image: 131
+      formula.Second_Image: 125
+      formula.third_Image: 130
+      note.voicenote: 161
+      formula.on_this_day: 112
+      formula.test: 125
+    rowHeight: extra
+  - type: table
+    name: Notes Created This Day
+    filters:
+      and:
+        - file.ctime == date(this.file.name)
+        - '!file.folder.startsWith("Journal")'
+        - '!file.folder.contains("Attachment")'
+    order:
+      - file.name
+      - summary
+      - file.ctime
+      - file.mtime
+      - file.folder
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 162
+      note.summary: 281
+      formula.first-image: 149
+      formula.Second_Image: 149
+      formula.third_Image: 150
+      note.voicenote: 230
+    rowHeight: medium
+  - type: table
+    name: Weekly Note
+    filters:
+      and:
+        - ((date(note["journal-date"]) - date(this.note["journal-date"])) / (1000 * 60 * 60 * 24)) < 7
+        - ((date(note["journal-date"]) - date(this.note["journal-date"])) / (1000 * 60 * 60 * 24)) >= 0
+        - or:
+            - type.contains("daily")
+    order:
+      - file.name
+      - log-day-rating
+      - summary
+      - formula.first-image
+      - formula.Second_Image
+      - formula.third_Image
+      - voicenote
+      - file.tags
+    sort:
+      - property: file.name
+        direction: ASC
+    limit: 10
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 111
+      note.log-day-rating: 156
+      note.summary: 258
+      formula.first-image: 149
+      formula.Second_Image: 149
+      formula.third_Image: 150
+      note.voicenote: 230
+    rowHeight: extra
+  - type: table
+    name: Weekly Stats
+    filters:
+      and:
+        - and:
+            - ((date(note["journal-date"]) - date(this.note["journal-date"])) / (1000 * 60 * 60 * 24)) < 7
+            - ((date(note["journal-date"]) - date(this.note["journal-date"])) / (1000 * 60 * 60 * 24)) >= 0
+        - or:
+            - type.contains("daily")
+    order:
+      - file.name
+      - log-day-rating
+      - log-healthy-eating
+      - log-sleep-hours
+      - log-sleep-rating
+      - summary
+    sort:
+      - property: file.name
+        direction: DESC
+    limit: 10
+    summaries:
+      log-healthy-eating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+      log-day-rating: Average
+    columnSize:
+      file.name: 99
+      note.log-day-rating: 152
+      note.log-healthy-eating: 170
+      note.log-sleep-hours: 131
+      note.log-sleep-rating: 160
+  - type: table
+    name: Monthly Note
+    filters:
+      and:
+        - date(note["journal-date"]).year == date(this["journal-date"]).year
+        - type.contains("daily")
+    order:
+      - file.name
+      - summary
+      - formula.first-image
+      - formula.Second_Image
+      - formula.third_Image
+      - voicenote
+      - file.tags
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 162
+      note.summary: 281
+      formula.first-image: 149
+      formula.Second_Image: 149
+      formula.third_Image: 150
+      note.voicenote: 230
+    rowHeight: extra
+  - type: table
+    name: Monthly Stats
+    filters:
+      and:
+        - and:
+            - date(note["journal-date"]).month == date(this["journal-date"]).month
+            - date(note["journal-date"]).year == date(this["journal-date"]).year
+        - or:
+            - type.contains("daily")
+    groupBy:
+      property: formula.yearMonth
+      direction: ASC
+    order:
+      - file.name
+      - log-day-rating
+      - log-healthy-eating
+      - log-sleep-hours
+      - log-sleep-rating
+      - summary
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 99
+      note.log-day-rating: 98
+      note.log-healthy-eating: 114
+      note.log-sleep-hours: 110
+      note.log-sleep-rating: 109
+  - type: table
+    name: Quarterly Note
+    filters:
+      and:
+        - date(note["journal-date"]).month >= ( (date(this["journal-date"]).month - 1) - ( (date(this["journal-date"]).month - 1) % 3 ) ) + 1
+        - date(note["journal-date"]).month <= ( ( (date(this["journal-date"]).month - 1) - ( (date(this["journal-date"]).month - 1) % 3 ) ) + 3 )
+        - date(note["journal-date"]).year == date(this["journal-date"]).year
+        - or:
+            - type.contains("daily")
+            - journal.contains("Journal daily")
+    order:
+      - file.name
+      - summary
+      - formula.first-image
+      - formula.Second_Image
+      - formula.third_Image
+      - voicenote
+      - file.tags
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 162
+      note.summary: 281
+      formula.first-image: 149
+      formula.Second_Image: 149
+      formula.third_Image: 150
+      note.voicenote: 230
+    rowHeight: extra
+  - type: table
+    name: Quarterly Stats
+    filters:
+      and:
+        - and:
+            - date(note["journal-date"]).month >= ( (date(this["journal-date"]).month - 1) - ( (date(this["journal-date"]).month - 1) % 3 ) ) + 1
+            - date(note["journal-date"]).month <= ( ( (date(this["journal-date"]).month - 1) - ( (date(this["journal-date"]).month - 1) % 3 ) ) + 3 )
+            - date(note["journal-date"]).year == date(this["journal-date"]).year
+        - or:
+            - type.contains("daily")
+            - journal.contains("Journal daily")
+    groupBy:
+      property: formula.yearMonth
+      direction: ASC
+    order:
+      - file.name
+      - log-day-rating
+      - log-healthy-eating
+      - log-sleep-hours
+      - log-sleep-rating
+      - summary
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+      formula.yearMonth: Empty
+    columnSize:
+      file.name: 99
+      note.log-day-rating: 98
+      note.log-healthy-eating: 114
+      note.log-sleep-hours: 110
+      note.log-sleep-rating: 109
+  - type: table
+    name: Yearly Note
+    filters:
+      and:
+        - date(note["journal-date"]).year == date(this["journal-date"]).year
+        - or:
+            - type.contains("daily")
+    groupBy:
+      property: formula.yearMonth
+      direction: DESC
+    order:
+      - file.name
+      - summary
+      - formula.first-image
+      - formula.Second_Image
+      - formula.third_Image
+      - voicenote
+      - file.tags
+      - formula.yearMonth
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+    columnSize:
+      file.name: 162
+      note.summary: 281
+      formula.first-image: 149
+      formula.Second_Image: 149
+      formula.third_Image: 150
+      note.voicenote: 230
+    rowHeight: extra
+  - type: table
+    name: Yearly Stats
+    filters:
+      and:
+        - and:
+            - date(note["journal-date"]).year == date(this["journal-date"]).year
+        - or:
+            - type.contains("daily")
+    groupBy:
+      property: formula.yearMonth
+      direction: ASC
+    order:
+      - file.name
+      - log-day-rating
+      - log-healthy-eating
+      - log-sleep-hours
+      - log-sleep-rating
+      - summary
+    sort: []
+    summaries:
+      log-healthy-eating: Average
+      log-day-rating: Average
+      log-sleep-hours: Average
+      log-sleep-rating: Average
+      file.name: Empty
+    columnSize:
+      file.name: 99
+      note.log-day-rating: 112
+      note.log-healthy-eating: 114
+      note.log-sleep-hours: 110
+      note.log-sleep-rating: 109

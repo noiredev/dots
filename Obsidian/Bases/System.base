@@ -1,0 +1,47 @@
+formulas:
+  image: image(file.file)
+  Untitled: ""
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - formula.image
+    columnSize:
+      file.name: 200
+  - type: table
+    name: Untitled
+    filters:
+      and:
+        - file.name.containsAny("untitled")
+    order:
+      - file.name
+      - formula.Untitled
+  - type: table
+    name: Templates
+    filters:
+      and:
+        - file.folder == "Templates"
+  - type: table
+    name: Files Without Tags
+    filters:
+      and:
+        - file.tags.isEmpty()
+        - '!file.path.contains("templates")'
+        - '!file.path.contains("bases")'
+        - '!file.path.contains("attachments")'
+        - '!file.path.contains("kanban")'
+    rowHeight: medium
+  - type: table
+    name: Large Files
+    order:
+      - file.name
+      - formula.image
+      - file.size
+      - file.ext
+      - file.ctime
+      - file.mtime
+    sort:
+      - property: file.size
+        direction: DESC
+    rowHeight: medium
