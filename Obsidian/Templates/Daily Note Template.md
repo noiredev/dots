@@ -4,13 +4,10 @@ journal: Journal daily
 type: 
 - daily
 aliases:
-up: 
-log-VN:
-log-LN:
-log-manga:
-log-listening:
-log-programming:
-log-gamedev:
+japanese-reading:
+japanese-listening:
+programming:
+gamedev:
 tags:
 summary:
 ---
@@ -20,6 +17,16 @@ summary:
 ```
 ---
 
+```dataview
+TABLE 
+  japanese-listening as "Listening",
+  japanese-reading as "Reading",
+  programming as "Programming",
+  gamedev as "Gamedev",
+  (japanese-listening + japanese-reading + programming + gamedev) as "Total"
+WHERE file = this.file
+```
+
 ## Pictures
 #### <% tp.file.title %>
 
@@ -28,6 +35,9 @@ LIST TODAY
 GROUP BY PROJECT
 SORT DESC
 ```
+
+---
+````
 
 ## Morning Pages
 >[!journal]- Today Years Ago

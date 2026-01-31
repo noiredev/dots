@@ -2,7 +2,6 @@
 date: <% moment(tp.file.title, 'YYYY-[W]WW').startOf('week').add(0, 'days').format("YYYY-MM-DD") %>
 journal: Journal Weekly
 type: weekly
-log-week:
 tags:
 summary:
 ---
