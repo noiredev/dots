@@ -23,7 +23,7 @@ TABLE
   japanese-reading as "Reading",
   programming as "Programming",
   gamedev as "Gamedev",
-  (japanese-listening + japanese-reading + programming + gamedev) as "Total"
+  number(japanese-listening) + number(japanese-reading) + number(programming) + number(gamedev) as "Total"
 WHERE file = this.file
 ```
 
@@ -37,7 +37,6 @@ SORT DESC
 ```
 
 ---
-````
 
 ## Morning Pages
 >[!journal]- Today Years Ago
