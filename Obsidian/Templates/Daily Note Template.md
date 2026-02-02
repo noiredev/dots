@@ -19,8 +19,8 @@ summary:
 
 ```dataview
 TABLE 
-  japanese-listening as "Listening",
   japanese-reading as "Reading",
+  japanese-listening as "Listening",
   programming as "Programming",
   gamedev as "Gamedev",
   number(japanese-listening) + number(japanese-reading) + number(programming) + number(gamedev) as "Total"
